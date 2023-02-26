@@ -1,0 +1,55 @@
+{% extends 'dashboard/base.html' %}
+{% block title %} Comment{% endblock %}
+{% block pagetitle %}Comment{% endblock %}
+{% block body %}
+    <style>
+        .dataTable-sorter::after, .dataTable-sorter::before {
+
+            visibility: hidden;
+        }
+    </style>
+    <div class="card-body">
+
+        <table class="table table-responsive" id="table1">
+            <thead style="width: 100%;">
+            <tr>
+                <th>SN</th>
+                <th>Commented By</th>
+                <th>Property Owner</th>
+                <th>Date</th>
+                <th>Date</th>
+                <th>Action</th>
+                <th>Action</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for comment in comments %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ comment.user.username }}</td>
+                    <td>{{ comment.property.user.username }}</td>
+                    <td>{{ comment.comment }}</td>
+                    <td>{{ comment.date_of_added|date:'y-m-d' }}</td>
+                    <td><a href="{% url 'home:property_desc' comment.property.pk %}" class="btn btn-success">Property Desc</a> </td>
+                    <td><form method="post" action="{% url 'dashboard:remove_comment' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ comment.pk }}">
+                        <input type="Submit" value="Remove Comment" href="{% url 'dashboard:remove_comment' %}" class="btn btn-success">
+                    </form></td>
+
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        <style>
+            @media screen and (min-width: 250px) {
+                .dataTable-input {
+                    margin-top: 5px;
+                    margin-right: -30px;
+                }
+            }
+        </style>
+    </div>
+{% endblock %}

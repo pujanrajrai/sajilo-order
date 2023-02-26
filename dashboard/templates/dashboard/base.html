@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/bootstrap.css' %}">
+
+    <link rel="stylesheet" href="{% static 'dashboard/assets/vendors/simple-datatables/style.css' %}">
+
+    <!-- <link rel="stylesheet" href="{% static 'dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/app.css' %}">
+    <!-- <link rel="shortcut icon" href="{% static 'dashboard/assets/images/favicon.svg' %}" type="image/x-icon"> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    {% block style %}{% endblock %}
+</head>
+
+<body>
+<div id="app">
+    <div id="sidebar" class="active">
+        <div class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                <div class="d-flex justify-content-between">
+                    <div class="logo">
+                        <a href="/">Sajilo Order</a>
+                    </div>
+                    <div class="toggler">
+                        <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-menu">
+                <ul class="menu">
+                    <li class="sidebar-item {% block dashboard_active %}{% endblock %}">
+                        {% comment %} <a href="{% url 'dashboard:home' %}" class='sidebar-link'>
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Dashboard</span>
+                        </a> {% endcomment %}
+                    </li>
+                    {% if request.user.is_admin %}
+                        <li class="sidebar-item">
+                            <a href="{% url 'property:property_list' %}" class='sidebar-link'>
+                                <i class="bi bi-building"></i>
+                                <span>Property</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{% url 'dashboard:all_users' %}" class='sidebar-link'>
+                                <i class="bi bi-people"></i>
+                                <span>All Users</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{% url 'property:property_category_list' %}" class='sidebar-link'>
+                                <i class="bi bi-phone-landscape"></i>
+                                <span>Property Categories</span>
+                            </a>
+                        </li>
+
+
+                    {% elif request.user.is_authenticated %}
+
+
+
+                    {% endif %}
+                    {% comment %} <li class="sidebar-item">
+                        <a href="{% url 'my_profile:profile_list_view' %}" class='sidebar-link'>
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{% url 'dashboard:property_visit_req' %}" class='sidebar-link'>
+                            <i class="bi bi-people-fill"></i>
+                            <span>Visit Request</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{% url 'chats:chat' %}" class='sidebar-link'>
+                            <i class="bi bi-people-fill"></i>
+                            <span>Chat</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{% url 'dashboard:my_properties' %}" class='sidebar-link'>
+                            <i class="bi bi-hammer"></i>
+                            <span>My Properties</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{% url 'dashboard:my_comments' %}" class='sidebar-link'>
+                            <i class="bi bi-chat"></i>
+                            <span>Comments</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{% url 'accounts:password_change' %}" class='sidebar-link'>
+                            <i class="bi bi-lock"></i>
+                            <span>Change Password</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{% url 'home:my_bookmark' %}" class='sidebar-link'>
+                            <i class="bi bi-bookmark"></i>
+                            <span>My Bookmark</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="/myvisitreq/" class='sidebar-link'>
+                            <i class="bi bi-bookmark-dash-fill"></i>
+                            <span>Visit Request</span>
+                        </a>
+                    </li> {% endcomment %}
+                    <li class="sidebar-item">
+                        <a href="{% url 'accounts:logout' %}" class='sidebar-link'>
+                            <i class="bi bi-lock"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </div>
+            <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+        </div>
+    </div>
+    <div id="main">
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>{% block pagetitle %}{% endblock %}</h3>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                {% block actionblock %}{% endblock %}
+                                {#                                <a class="btn btn-success"><i class="bi bi-plus-circle" style="font-size: 14px;"></i> Add</a>#}
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <section class="section">
+                <div class="card">
+                    {% block body %}{% endblock %}
+                </div>
+
+            </section>
+        </div>
+
+    </div>
+</div>
+{% block js %}{% endblock %}
+<!-- <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script> -->
+
+<script src="{% static 'dashboard/assets/vendors/simple-datatables/simple-datatables.js' %}"></script>
+<script>
+    // Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+</script>
+
+
+<script src="{% static 'dashboard/assets/js/main.js' %}"></script>
+</body>
+
+
+</html>

@@ -1,0 +1,33 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block title %}View Profile{% endblock %}
+{% block body %}
+    <div class="card-body">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">View profile</h1>
+        </div>
+        <div class="row">
+
+            <!-- DataTable with Hover -->
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    </div>
+                    <div class="table-responsive p-3">
+                        {% for profile in profiles %}
+                            Image:<br>
+                            <img src="{{ profile.photo.url }}" height="350" width="200"><br>
+                            Name: {{ profile.full_name }}<br>
+                            Email: {{ profile.user.email }}<br>
+                            Address : {{ profile.address }}<br>
+                            Phone Number : {{ profile.phone_number }}<br>
+                            Date of birth : {{ profile.dob }}<br>
+                            <a href="{% url 'my_profile:profile_update' %}" class="btn btn-success">Update Profile</a>
+                            <br>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

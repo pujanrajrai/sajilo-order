@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Verify Email</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/assets/css/styles.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+
+<body style="background-color: var(--primary-color);">
+
+<div class="container height-100 d-flex justify-content-center align-items-center">
+    <div class="position-relative">
+        <div class="card p-2 text-center">
+            <div><span>A six digit code has been sent to your email<br></span> <b>{{ request.user }}</b>
+            </div>
+            {% if error %}
+                <div>
+                    <span>{{ error }}<br></span>
+                </div>
+            {% endif %}
+            <h6 class="mt-2">Please enter the code to verify your account</h6>
+            <form method="post">
+                <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
+                    {% csrf_token %}
+                    <input class="m-2 text-center form-control rounded" name="otp1" type="text" id='ist' maxlength="1"
+                           onkeyup="clickEvent(this,'sec')">
+                    <input class="m-2 text-center form-control rounded" name="otp2" type="text" id='sec' maxlength="1"
+                           onkeyup="clickEvent(this,'third')">
+                    <input class="m-2 text-center form-control rounded" name="otp3" type="text" id='third' maxlength="1"
+                           onkeyup="clickEvent(this,'fourth')">
+                    <input class="m-2 text-center form-control rounded" name="otp4" type="text" id='fourth'
+                           maxlength="1"
+                           onkeyup="clickEvent(this,'fifth')">
+                    <input class="m-2 text-center form-control rounded" name="otp5" type="text" id='fifth' maxlength="1"
+                           onkeyup="clickEvent(this,'sixth')">
+                    <input class="m-2 text-center form-control rounded" name="otp6" type="text" id='sixth'
+                           maxlength="1">
+
+                </div>
+                <div class="mt-4">
+                    <input type="submit" value="Verify" class="btn btn-info px-4 validate">
+                </div>
+            </form>
+        </div>
+        <div class="card-2">
+            <div class="content d-flex justify-content-center align-items-center"> <span>Didn't get the otp
+						code?</span>
+                <a href="{% url 'accounts:send_email_verification_code' %}"> Resend Verification code</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function clickEvent(first, last) {
+        if (first.value.length) {
+            document.getElementById(last).focus();
+        }
+    }
+</script>
+
+</body>
+
+</html>

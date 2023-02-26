@@ -1,0 +1,55 @@
+{% extends 'dashboard/base.html' %}
+{% block title %} Property Visit Request{% endblock %}
+{% block pagetitle %}Property Visit Request{% endblock %}
+{% block body %}
+    <style>
+        .dataTable-sorter::after, .dataTable-sorter::before {
+
+            visibility: hidden;
+        }
+    </style>
+    <div class="card-body">
+
+        <table class="table table-responsive" id="table1">
+            <thead style="width: 100%;">
+            <tr>
+                <th>SN</th>
+                <th>User</th>
+                <th>Property</th>
+                <th>Property owner</th>
+                <th>Visit Request</th>
+                <th>Action</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for visit_req in property_visit_req %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ visit_req.user.username }}</td>
+                    <td>{{ visit_req.property }}</td>
+                    <td>{{ visit_req.property.user.username }}</td>
+                    <td>{{ visit_req.is_vist_req }}</td>
+                <td class="align-middle">
+                                <form method="post" action="{% url 'home:remove_watchlist' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{ visit_req.property.pk }}" name="property_id">
+                                    <button class="btn btn-sm btn-primary"><i
+                                        class="fa fa-times"></i>Remove Visit Request</button>
+                                </form>
+                            </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        <style>
+            @media screen and (min-width: 250px) {
+                .dataTable-input {
+                    margin-top: 5px;
+                    margin-right: -30px;
+                }
+            }
+        </style>
+    </div>
+{% endblock %}

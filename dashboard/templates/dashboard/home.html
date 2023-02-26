@@ -1,0 +1,85 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Dashboard {% endblock %}
+{% block pagetitle %}Dashboard {% endblock %}
+
+{% block dashboard_active %}active{% endblock %}
+{% block body %}
+
+    <div class="page-content">
+                <section class="row">
+                    <div class="col-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-6 col-lg-4 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-3 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon purple">
+                                                    <i class="bi-people-fill"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">Total Users</h6>
+                                                <h6 class="font-extrabold mb-0">{{ total_users }}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-4 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-3 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon blue">
+                                                    <i class="bi bi-building"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">Total Properties</h6>
+                                                <h6 class="font-extrabold mb-0">{{ total_comment }}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-4 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-3 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon green">
+                                                    <i class="bi bi-chat"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">Total Comment</h6>
+                                                <h6 class="font-extrabold mb-0">{{ total_comment }}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-4 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-3 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon red">
+                                                    <i class="bi bi-bookmark-dash-fill"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">Total Bookmarked Properties</h6>
+                                                <h6 class="font-extrabold mb-0">{{ total_book_marked }}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+{% endblock %}
